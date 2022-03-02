@@ -1,26 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container-node">
+    <el-container>
+      <el-aside width="auto">
+        <aside-view />
+      </el-aside>
+      <el-container>
+        <el-header><header-view /></el-header>
+        <el-main><main-view /></el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AsideView from "../views/AsideView/indexView.vue";
+import MainView from "../views/Main/indexView.vue";
+import HeaderView from "../views/Header/indexView.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    AsideView,
+    MainView,
+    HeaderView,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.el-container {
+  margin: 0;
+  padding: 0;
+}
+.el-header {
+  margin: 0;
+  padding: 0 20px;
+  background-color: #545c64;
+}
+.el-main {
+  margin: 0;
+  padding: 0;
+}
+.el-aside {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 </style>
