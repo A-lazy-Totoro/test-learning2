@@ -6,22 +6,22 @@
       </el-aside>
       <el-container>
         <el-header><header-view /></el-header>
-        <el-main><main-view /></el-main>
+        <el-main><router-view /></el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
-import AsideView from "../views/AsideView/indexView.vue";
-import MainView from "../views/Main/indexView.vue";
-import HeaderView from "../views/Header/indexView.vue";
+import AsideView from "./components/AsideComponent.vue";
+//import MainView from "../views/Main/indexView.vue";
+import HeaderView from "./components/HeaderComponent.vue";
 
 export default {
   name: "App",
   components: {
     AsideView,
-    MainView,
+    //MainView,
     HeaderView,
   },
 };

@@ -7,16 +7,16 @@
         class="el-menu-vertical-demo"
         text-color="#fff"
         router
+        default-active="Home"
         :collapse="isShow"
         collapse-transition
-        @open="handleOpen"
-        @close="handleClose"
       >
         <h3>{{ isShow ? "后台" : "通用后台管理系统" }}</h3>
         <el-menu-item
           v-for="item in noChildren"
           :key="item.name"
           :index="item.path"
+          @click="clickMenu(item)"
         >
           <el-icon v-html="item.icon"></el-icon>
           <span>{{ item.label }}</span>
@@ -31,6 +31,7 @@
               v-for="itemC in item.children"
               :key="itemC.name"
               :index="itemC.path"
+              @click="clickMenu(itemC)"
             >
               <el-icon v-html="itemC.icon"></el-icon>
               {{ itemC.label }}</el-menu-item
@@ -46,7 +47,7 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
-  name: "AsideComponent",
+  name: "AsideView",
   setup() {
     //定义变量，方便使用vuex的store
     const store = useStore();
@@ -130,22 +131,23 @@ export default {
 
     //通过计算属性，获取到menu菜单的叠起/展开状态
     const isShow = computed(() => {
-      console.log(store.state.tag.isShow);
-      return store.state.tag.isShow;
+      return store.state.menu.isShow;
     });
 
-    const handleOpen = (key, keyPath) => {
-      console.log(key, keyPath);
+    //事件
+    //通过点击事件，将对应项目的数据传进来
+    const clickMenu = (item) => {
+      //配置Header区域面包屑渲染数据
+      store.commit("pushBreadMenu", item);
+      //配置Main区域tag标签渲染数据
+      store.commit("setTag", item);
     };
-    const handleClose = (key, keyPath) => {
-      console.log(key, keyPath);
-    };
+
     return {
       hasChildren,
       noChildren,
-      handleOpen,
-      handleClose,
       isShow,
+      clickMenu,
     };
   },
 };
@@ -160,6 +162,7 @@ export default {
   justify-content: center;
   .el-menu {
     height: 100%;
+    min-width: 200px;
     h3 {
       height: 60px;
       text-align: center;

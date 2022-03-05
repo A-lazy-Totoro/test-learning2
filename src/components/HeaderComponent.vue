@@ -1,10 +1,17 @@
 <template>
   <div class="HeaderNode">
-    <div>
+    <div class="breadMenu">
       <el-button type="primary" size="small" plain @click="closeMenu">
         <el-icon><icon-menu /></el-icon>
       </el-button>
-      首页
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item
+          v-for="item in initBreadMenu"
+          :to="{ path: item.path }"
+          :key="item.name"
+          >{{ item.label }}</el-breadcrumb-item
+        >
+      </el-breadcrumb>
     </div>
     <el-dropdown>
       <div class="el-dropdown-link">
@@ -25,6 +32,7 @@
 
 <script>
 import { Menu as IconMenu } from "@element-plus/icons-vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
   name: "HeaderView",
@@ -33,9 +41,13 @@ export default {
   },
   setup() {
     const store = useStore();
+    //点击按钮，折叠左侧菜单 事件
     const closeMenu = () => store.commit("changeIsShow");
+    //获取面包屑导航的渲染数据
+    const initBreadMenu = computed(() => store.state.menu.breadMenu);
     return {
       closeMenu,
+      initBreadMenu,
     };
   },
 };
@@ -51,6 +63,21 @@ export default {
     height: 40px;
     border-radius: 20px;
     overflow: hidden;
+  }
+  .breadMenu {
+    display: flex;
+    align-items: center;
+    .el-breadcrumb {
+      margin-left: 20px;
+
+      span {
+        color: #fff;
+        cursor: pointer;
+        :hover {
+          color: #409eff;
+        }
+      }
+    }
   }
 }
 </style>

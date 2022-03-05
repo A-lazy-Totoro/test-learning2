@@ -1,7 +1,8 @@
 import { createStore } from "vuex";
-import { tag } from "./tag";
+import { menu } from "./menu";
+import {userForm} from "./userForm.js"
 export const store = createStore({
   modules: {
-    tag,
+    menu,userForm
   },
 });
